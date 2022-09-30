@@ -36,3 +36,11 @@ class InsertReminderIntoDatabaseEvent extends ReminderEvent {
         remindState,
       ];
 }
+
+class ChangeThemeModeEvent extends ReminderEvent {
+  final ThemeData currentTheme;
+  const ChangeThemeModeEvent(this.currentTheme);
+
+  @override
+  List<Object?> get props => [currentTheme];
+}

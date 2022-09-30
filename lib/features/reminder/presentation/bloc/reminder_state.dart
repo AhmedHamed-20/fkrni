@@ -5,11 +5,13 @@ class ReminderState extends Equatable {
   final List<ReminderEntitie> reminderEntitie;
   final String errorMessage;
   final void rawId;
+  final ThemedataSwitch themedataSwitch;
 
   const ReminderState({
     this.reminderEntitie = const [],
     this.errorMessage = '',
     this.requestState = RequestState.loading,
+    this.themedataSwitch = ThemedataSwitch.light,
     this.rawId,
   });
 
@@ -17,11 +19,13 @@ class ReminderState extends Equatable {
     List<ReminderEntitie>? reminderEntitie,
     RequestState? requestState,
     String? errorMessage,
+    ThemedataSwitch? themedataSwitch,
     rawId,
   }) {
     return ReminderState(
       reminderEntitie: reminderEntitie ?? this.reminderEntitie,
       requestState: requestState ?? this.requestState,
+      themedataSwitch: themedataSwitch ?? this.themedataSwitch,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
@@ -31,5 +35,6 @@ class ReminderState extends Equatable {
         reminderEntitie,
         requestState,
         errorMessage,
+        themedataSwitch,
       ];
 }

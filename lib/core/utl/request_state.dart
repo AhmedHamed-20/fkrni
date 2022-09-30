@@ -3,3 +3,8 @@ enum RequestState {
   loaded,
   error,
 }
+
+enum ThemedataSwitch {
+  light,
+  dark,
+}

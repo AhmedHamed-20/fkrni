@@ -45,8 +45,9 @@ class RemindersList extends StatelessWidget {
                   ),
                   trailing: IconButton(
                       onPressed: () {},
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.delete_outlined,
+                        color: themeOfIconTheme(context).color,
                       )),
                 ),
               ),

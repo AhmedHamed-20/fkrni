@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fkrni/core/theme/theme_data.dart';
 import 'package:fkrni/core/utl/request_state.dart';
 import 'package:fkrni/features/reminder/domain/entities/reminder_entitie.dart';
 import 'package:fkrni/features/reminder/domain/usecases/get_all_reminder_usecase.dart';
+import 'package:flutter/material.dart';
 
 import '../../domain/usecases/store_reminder_usecase.dart';
 part 'reminder_event.dart';
@@ -15,6 +17,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       : super(const ReminderState()) {
     on<GetAllRemindersEvent>(_getAllReminders);
     on<InsertReminderIntoDatabaseEvent>(_insertIntoDatabaseReminder);
+    on<ChangeThemeModeEvent>(_changeThemeMode);
   }
 
   ReminderUseCases reminderUseCases;
@@ -48,5 +51,12 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
         (l) => emit(state.copyWith(
             errorMessage: l.message, requestState: RequestState.error)),
         (r) => emit(state.copyWith(requestState: RequestState.loaded)));
+  }
+
+  FutureOr<void> _changeThemeMode(
+      ChangeThemeModeEvent event, Emitter<ReminderState> emit) {
+    event.currentTheme == ThemeDataValues.lightMode
+        ? emit(state.copyWith(themedataSwitch: ThemedataSwitch.light))
+        : emit(state.copyWith(themedataSwitch: ThemedataSwitch.dark));
   }
 }

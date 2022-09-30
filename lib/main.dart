@@ -34,11 +34,18 @@ class MyApp extends StatelessWidget {
           create: (context) => servicelocator<ReminderBloc>(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: appTheme(),
-        home: const HomeScreen(),
-      ),
+      child:
+          BlocBuilder<ReminderBloc, ReminderState>(builder: (context, state) {
+        print(state.themedataSwitch);
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Fkrni',
+          theme: state.themedataSwitch.index == 0
+              ? ThemeDataValues.lightMode
+              : ThemeDataValues.darkMode,
+          home: const HomeScreen(),
+        );
+      }),
     );
   }
 }
