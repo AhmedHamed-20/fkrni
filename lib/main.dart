@@ -17,7 +17,7 @@ void main() async {
         '''CREATE TABLE reminder (id INTEGER PRIMARY KEY,word TEXT,translation TEXT,createdTime TEXT,availbleTimes TEXT,remindState INTEGER)''',
   );
 
-  print(await DatabaseProvider.getAllDataFromDatabase('reminder'));
+  // print(await DatabaseProvider.getAllDataFromDatabase('reminder'));
 
   runApp(const MyApp());
 }
@@ -31,18 +31,20 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => servicelocator<ReminderBloc>(),
+          create: (context) => servicelocator<ReminderBloc>()
+            ..add(const GetAllRemindersEvent('reminder')),
         ),
       ],
       child:
           BlocBuilder<ReminderBloc, ReminderState>(builder: (context, state) {
-        print(state.themedataSwitch);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Fkrni',
-          theme: state.themedataSwitch.index == 0
-              ? ThemeDataValues.lightMode
-              : ThemeDataValues.darkMode,
+          themeMode: state.themedataSwitch.index == 0
+              ? ThemeMode.light
+              : ThemeMode.dark,
+          darkTheme: ThemeDataValues.darkMode,
+          theme: ThemeDataValues.lightMode,
           home: const HomeScreen(),
         );
       }),

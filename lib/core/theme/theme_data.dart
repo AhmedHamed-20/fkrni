@@ -17,6 +17,10 @@ class ThemeDataValues {
         ),
       ),
       textTheme: TextTheme(
+        titleMedium: GoogleFonts.rubik(
+          color: Colors.black,
+          fontSize: 16,
+        ),
         titleLarge: GoogleFonts.rubik(
           color: Colors.black,
           fontSize: 16,
@@ -46,6 +50,10 @@ class ThemeDataValues {
         ),
       ),
       textTheme: TextTheme(
+        titleMedium: GoogleFonts.rubik(
+          color: Colors.white,
+          fontSize: 16,
+        ),
         titleLarge: GoogleFonts.rubik(
           color: Colors.white,
           fontSize: 16,

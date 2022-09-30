@@ -15,9 +15,13 @@ class ReminderModel extends ReminderEntitie {
     return ReminderModel(
         word: map['word'],
         translation: map['translation'],
-        createdTime: map['createdTime'],
-        availbleTimes: List<DateTime>.from(map['availbleTimes'].map((e) => e)),
-        reminderState: map['reminderState']);
+        createdTime: DateTime.parse(
+          map['createdTime'],
+        ),
+        availbleTimes: List<DateTime>.from(
+            (json.decode(map['availbleTimes']) as List)
+                .map((e) => DateTime.parse(e))),
+        reminderState: map['remindState'] ?? 0);
   }
 
   static Map<String, dynamic> toMap({

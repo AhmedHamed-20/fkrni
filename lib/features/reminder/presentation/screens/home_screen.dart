@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const RemindersList(),
+          RemindersList(parentContext: context),
           MaterialButton(
             onPressed: () {},
             child: Icon(
