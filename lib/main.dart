@@ -41,10 +41,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Fkrni',
           themeMode: state.themedataSwitch.index == 0
-              ? ThemeMode.light
-              : ThemeMode.dark,
+              ? ThemeMode.light:ThemeMode.dark,
           darkTheme: ThemeDataValues.darkMode,
-          theme: ThemeDataValues.lightMode,
+          theme: ThemeDataValues.lightMode
+             ,
           home: const HomeScreen(),
         );
       }),

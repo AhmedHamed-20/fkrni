@@ -44,3 +44,11 @@ class ChangeThemeModeEvent extends ReminderEvent {
   @override
   List<Object?> get props => [currentTheme];
 }
+
+class DeleteReminderByIdEvent extends ReminderEvent {
+  final int reminderId;
+  const DeleteReminderByIdEvent(this.reminderId);
+
+  @override
+  List<Object?> get props => [reminderId];
+}

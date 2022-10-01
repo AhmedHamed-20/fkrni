@@ -6,8 +6,8 @@ class ServerException implements Exception {
   const ServerException({required this.errorMessageModel});
 }
 
-class DataBaseException implements Exception {
+class AppDataBaseException implements Exception {
   final ErrorMessageModel errorMessageModel;
 
-  const DataBaseException(this.errorMessageModel);
+  const AppDataBaseException(this.errorMessageModel);
 }

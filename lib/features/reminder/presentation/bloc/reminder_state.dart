@@ -6,13 +6,14 @@ class ReminderState extends Equatable {
   final String errorMessage;
   final void rawId;
   final ThemedataSwitch themedataSwitch;
-
+  final int reminderDeleteInt;
   const ReminderState({
     this.reminderEntitie = const [],
     this.errorMessage = '',
     this.requestState = RequestState.loading,
     this.themedataSwitch = ThemedataSwitch.light,
     this.rawId,
+    this.reminderDeleteInt = -1,
   });
 
   ReminderState copyWith({
@@ -21,12 +22,14 @@ class ReminderState extends Equatable {
     String? errorMessage,
     ThemedataSwitch? themedataSwitch,
     rawId,
+    int? reminderDeleteInt,
   }) {
     return ReminderState(
       reminderEntitie: reminderEntitie ?? this.reminderEntitie,
       requestState: requestState ?? this.requestState,
       themedataSwitch: themedataSwitch ?? this.themedataSwitch,
       errorMessage: errorMessage ?? this.errorMessage,
+      reminderDeleteInt: reminderDeleteInt ?? this.reminderDeleteInt,
     );
   }
 
@@ -36,5 +39,6 @@ class ReminderState extends Equatable {
         requestState,
         errorMessage,
         themedataSwitch,
+        reminderDeleteInt,
       ];
 }

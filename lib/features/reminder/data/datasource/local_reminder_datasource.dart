@@ -4,6 +4,7 @@ import 'package:fkrni/core/database/database_setup.dart';
 import 'package:fkrni/core/error/error_message_model.dart';
 import 'package:fkrni/core/error/exceptions.dart';
 import 'package:fkrni/features/reminder/data/models/reminder_model.dart';
+import 'package:fkrni/features/reminder/domain/usecases/delete_reminder_by_id.dart';
 import 'package:fkrni/features/reminder/domain/usecases/get_all_reminder_usecase.dart';
 import 'package:fkrni/features/reminder/domain/usecases/store_reminder_usecase.dart';
 import 'package:sqflite/sqflite.dart';
@@ -11,6 +12,7 @@ import 'package:sqflite/sqflite.dart';
 abstract class BaseLocalReminderDatasource {
   Future<List<ReminderModel>> getAllReminders(ReminderParams params);
   Future<void> insertReminder(INsertedReminderParams params);
+  Future<int> deleteReminderFromDatabaseById(DeleteReinderParams params);
 }
 
 class LocalReminderDatasource extends BaseLocalReminderDatasource {
@@ -22,7 +24,7 @@ class LocalReminderDatasource extends BaseLocalReminderDatasource {
 
       return List.from(result.map((e) => ReminderModel.fromMap(e)));
     } on DatabaseException catch (exceptions) {
-      throw DataBaseException(
+      throw AppDataBaseException(
           ErrorMessageModel.fromException(exceptions.result));
     }
   }
@@ -50,7 +52,19 @@ class LocalReminderDatasource extends BaseLocalReminderDatasource {
 
       return result;
     } on DatabaseException catch (exceptions) {
-      throw DataBaseException(
+      throw AppDataBaseException(
+          ErrorMessageModel.fromException(exceptions.result));
+    }
+  }
+
+  @override
+  Future<int> deleteReminderFromDatabaseById(DeleteReinderParams params) async {
+    try {
+      final result = await DatabaseProvider.deleteReimnderFromDatabaseById(
+          params.reminderId);
+      return result;
+    } on DatabaseException catch (exceptions) {
+      throw AppDataBaseException(
           ErrorMessageModel.fromException(exceptions.result));
     }
   }

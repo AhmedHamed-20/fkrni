@@ -21,7 +21,7 @@ class ReminderModel extends ReminderEntitie {
         availbleTimes: List<DateTime>.from(
             (json.decode(map['availbleTimes']) as List)
                 .map((e) => DateTime.parse(e))),
-        reminderState: map['remindState'] ?? 0);
+        reminderState: map['remindState'] );
   }
 
   static Map<String, dynamic> toMap({
