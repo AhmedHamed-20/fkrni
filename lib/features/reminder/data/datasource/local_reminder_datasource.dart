@@ -61,7 +61,7 @@ class LocalReminderDatasource extends BaseLocalReminderDatasource {
   Future<int> deleteReminderFromDatabaseById(DeleteReinderParams params) async {
     try {
       final result = await DatabaseProvider.deleteReimnderFromDatabaseById(
-          params.reminderId);
+          id: params.reminderId, tableName: params.tableName);
       return result;
     } on DatabaseException catch (exceptions) {
       throw AppDataBaseException(

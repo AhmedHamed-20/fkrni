@@ -1,7 +1,6 @@
 import 'package:fkrni/features/reminder/presentation/bloc/reminder_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/const/app_elevation.dart';
 import '../../../../core/const/app_padding.dart';
 import '../../../../core/const/app_radius.dart';
@@ -10,21 +9,24 @@ import '../../../../core/utl/request_state.dart';
 
 class RemindersList extends StatelessWidget {
   const RemindersList({
-    required this.parentContext,
+    required this.context,
     Key? key,
   }) : super(key: key);
-  final BuildContext parentContext;
+  final BuildContext context;
   @override
-  Widget build(parentContext) {
-    return BlocBuilder<ReminderBloc, ReminderState>(
-        builder: (parentContext, state) {
-      print(state.themedataSwitch);
+  Widget build(context) {
+    return BlocBuilder<ReminderBloc, ReminderState>(builder: (context, state) {
       switch (state.requestState) {
         case RequestState.loading:
           return const Center(
             child: CircularProgressIndicator(),
           );
         case RequestState.loaded:
+          if (state.reminderDeleteInt == 1) {
+            context
+                .read<ReminderBloc>()
+                .add(const GetAllRemindersEvent('reminder'));
+          }
           return Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
@@ -43,28 +45,32 @@ class RemindersList extends StatelessWidget {
                           children: [
                             Text(
                               '${state.reminderEntitie[index].word} => ',
-                              style: themeOfTextTheme(parentContext)
+                              style: themeOfTextTheme(context)
                                   .titleLarge
                                   ?.copyWith(
-                                      color: themeOfPrimaryColor(parentContext),
+                                      color: themeOfPrimaryColor(context),
                                       fontWeight: FontWeight.w600),
                             ),
                             Text(
                               state.reminderEntitie[index].translation,
-                              style:
-                                  themeOfTextTheme(parentContext).titleMedium,
+                              style: themeOfTextTheme(context).titleMedium,
                             ),
                           ],
                         ),
                         subtitle: Text(
                           state.reminderEntitie[index].createdTime.toString(),
-                          style: Theme.of(parentContext).textTheme.labelMedium,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                         trailing: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<ReminderBloc>().add(
+                                  DeleteReminderByIdEvent(
+                                      state.reminderEntitie[index].id,
+                                      'reminder'));
+                            },
                             icon: Icon(
                               Icons.delete_outlined,
-                              color: themeOfIconTheme(parentContext).color,
+                              color: themeOfIconTheme(context).color,
                             )),
                       ),
                     ),
@@ -77,9 +83,14 @@ class RemindersList extends StatelessWidget {
           return Center(
             child: Text(
               'error',
-              style: themeOfTextTheme(parentContext).titleLarge,
+              style: themeOfTextTheme(context).titleLarge,
             ),
           );
+        case RequestState.insertedOrDeletedDataSuccess:
+          context
+              .read<ReminderBloc>()
+              .add(const GetAllRemindersEvent('reminder'));
+          return const SizedBox.shrink();
       }
     });
   }

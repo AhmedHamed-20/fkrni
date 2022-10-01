@@ -53,7 +53,8 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     result.fold(
         (l) => emit(state.copyWith(
             errorMessage: l.message, requestState: RequestState.error)),
-        (r) => emit(state.copyWith(requestState: RequestState.loaded)));
+        (r) => emit(state.copyWith(
+            requestState: RequestState.insertedOrDeletedDataSuccess)));
   }
 
   FutureOr<void> _changeThemeMode(
@@ -65,13 +66,17 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
 
   FutureOr<void> _deleteReminderById(
       DeleteReminderByIdEvent event, Emitter<ReminderState> emit) async {
-    final result =
-        await reminderDeleteUsecase(DeleteReinderParams(event.reminderId));
+    final result = await reminderDeleteUsecase(
+        DeleteReinderParams(event.reminderId, event.tableName));
     emit(state.copyWith(requestState: RequestState.loading));
     result.fold(
-        (l) => emit(state.copyWith(
-            errorMessage: l.message, requestState: RequestState.error)),
-        (r) => emit(state.copyWith(
-            reminderDeleteInt: r, requestState: RequestState.loaded)));
+      (l) => emit(state.copyWith(
+          errorMessage: l.message, requestState: RequestState.error)),
+      (r) => emit(
+        state.copyWith(
+            reminderDeleteInt: r,
+            requestState: RequestState.insertedOrDeletedDataSuccess),
+      ),
+    );
   }
 }

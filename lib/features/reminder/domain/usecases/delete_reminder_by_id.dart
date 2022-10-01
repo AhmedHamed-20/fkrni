@@ -16,7 +16,9 @@ class ReminderDeleteUsecase extends BaseUsecase<int, DeleteReinderParams> {
 
 class DeleteReinderParams extends Equatable {
   final int reminderId;
-  const DeleteReinderParams(this.reminderId);
+  final String tableName;
+
+  const DeleteReinderParams(this.reminderId, this.tableName);
   @override
-  List<Object?> get props => [reminderId];
+  List<Object?> get props => [reminderId, tableName];
 }

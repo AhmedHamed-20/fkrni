@@ -47,8 +47,10 @@ class ChangeThemeModeEvent extends ReminderEvent {
 
 class DeleteReminderByIdEvent extends ReminderEvent {
   final int reminderId;
-  const DeleteReminderByIdEvent(this.reminderId);
+  final String tableName;
+
+  const DeleteReminderByIdEvent(this.reminderId, this.tableName);
 
   @override
-  List<Object?> get props => [reminderId];
+  List<Object?> get props => [reminderId, tableName];
 }

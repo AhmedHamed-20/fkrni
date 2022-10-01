@@ -9,19 +9,22 @@ class ReminderModel extends ReminderEntitie {
     required super.createdTime,
     required super.availbleTimes,
     required super.reminderState,
+    required super.id,
   });
 
   factory ReminderModel.fromMap(Map<String, dynamic> map) {
     return ReminderModel(
-        word: map['word'],
-        translation: map['translation'],
-        createdTime: DateTime.parse(
-          map['createdTime'],
-        ),
-        availbleTimes: List<DateTime>.from(
-            (json.decode(map['availbleTimes']) as List)
-                .map((e) => DateTime.parse(e))),
-        reminderState: map['remindState'] );
+      word: map['word'],
+      translation: map['translation'],
+      createdTime: DateTime.parse(
+        map['createdTime'],
+      ),
+      availbleTimes: List<DateTime>.from(
+          (json.decode(map['availbleTimes']) as List)
+              .map((e) => DateTime.parse(e))),
+      reminderState: map['remindState'],
+      id: map['id'],
+    );
   }
 
   static Map<String, dynamic> toMap({

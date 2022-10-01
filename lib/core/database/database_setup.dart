@@ -26,8 +26,9 @@ class DatabaseProvider {
     return await database.rawQuery('SELECT * FROM $tableName');
   }
 
-  static Future<int> deleteReimnderFromDatabaseById(int id) async {
-    return await database.rawDelete('DELETE FROM Test WHERE  id=$id');
+  static Future<int> deleteReimnderFromDatabaseById(
+      {required int id, required String tableName}) async {
+    return await database.rawDelete('DELETE FROM $tableName WHERE  id=$id');
   }
 
   static Future<void> insertIntoDataBase(

@@ -1,15 +1,15 @@
-import 'dart:convert';
-
-import 'package:fkrni/core/const/app_elevation.dart';
+import 'package:fkrni/core/const/app_height.dart';
 import 'package:fkrni/core/const/app_padding.dart';
 import 'package:fkrni/core/const/app_radius.dart';
+import 'package:fkrni/core/widgets/common_widgets.dart';
+import 'package:fkrni/features/reminder/text_field_controllers/text_field_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/const/const.dart';
 import '../../../../core/theme/theme_data.dart';
-import '../../../../core/utl/request_state.dart';
 import '../bloc/reminder_bloc.dart';
+import '../widgets/add_reminder_bottom_sheet.dart';
 import '../widgets/reminder_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -40,9 +40,20 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          RemindersList(parentContext: context),
+          RemindersList(context: context),
           MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(AppRadius.ra25),
+                          topRight: Radius.circular(AppRadius.ra25))),
+                  context: context,
+                  builder: (context) {
+                    return const AddReminderBottomSheet();
+                  });
+            },
             child: Icon(
               Icons.add,
               color: themeOfPrimaryColor(context),
